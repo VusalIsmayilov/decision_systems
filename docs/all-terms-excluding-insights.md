@@ -1,0 +1,516 @@
+# All Terms (Excluding Insights)
+
+Generated: 2026-04-03
+
+Terms are extracted from the `Allowed Signals` and `Forbidden Signals` bullet lists in the page-content spec files under `docs/`, excluding any Insights files.
+
+## Home (`0_DRAFT_Home_page_content.md`)
+- what the firm is
+- control
+- ownership
+- system
+- direction
+- fragmented state
+- immediate relevance
+- executive entry point
+- symptoms list
+- causes of failure
+- embedded leadership explanation
+- operating model
+- service scope
+- domains
+- triggers
+- proof points
+- review process details
+- conflicting outputs
+- unclear priorities
+- fragmented reporting
+- inconsistent decisions
+- lack of alignment
+- leadership frustration
+- observable patterns
+- cross-functional inconsistency
+- root causes
+- structural explanation
+- solution framing
+- firm definition
+- operating model
+- service categories
+- engagement invitation
+- credibility claims
+- misalignment
+- disconnected initiatives
+- activity without control
+- reporting without decision impact
+- fragmented ownership
+- lack of direction
+- structural gaps
+- weak linkage between data and decisions
+- symptom list only
+- firm introduction
+- embedded leadership category
+- service scope
+- intervention domains
+- engagement triggers
+- proof of experience
+- CTA language
+- DataOfis Partners as category
+- embedded leadership
+- ownership
+- control
+- direction
+- data leadership layer
+- distinct position
+- relation to decisions and systems
+- symptom descriptions
+- failure explanations
+- detailed operating mechanics
+- services list
+- domain breakdown
+- trigger scenarios
+- founder biography
+- conversion CTA
+- structured model exists
+- consistent control
+- defined approach
+- reference to how work is organized
+- signal of system discipline
+- pointer to How We Work
+- phase details
+- role breakdown
+- vendor model
+- service list
+- domain explanations
+- trigger situations
+- proof points
+- direction
+- architecture and design
+- organization and control
+- execution and adoption
+- high-level scope
+- complete coverage
+- one line per domain
+- service descriptions
+- deliverables
+- detailed activities
+- operating model explanation
+- trigger moments
+- experience claims
+- review framing
+- CTA
+- transformation moments
+- scaling pressure
+- leadership change
+- AI pressure
+- delivery underperformance
+- vendor sprawl
+- decision inconsistency becoming urgent
+- organizational inflection points
+- generic symptom list
+- deep root-cause explanation
+- firm definition
+- operating model
+- services
+- domains overview
+- detailed case evidence
+- direct CTA
+- scale
+- complexity
+- transformation scope
+- leadership exposure
+- factual experience markers
+- cross-functional environments
+- real-world credibility
+- delivery context at high level
+- personal life story
+- philosophy
+- service selling
+- operating model explanation
+- trigger scenarios
+- credibility proof
+- repeated CTA slogans
+- scheduling mechanics
+- one action only
+- Schedule Executive Data Review
+- explanation
+- supporting copy
+- alternate actions
+- multiple links
+- service references
+- trust claims
+- problem restatement
+- urgency tricks
+
+## About (`0_DRAFT_About_page_content.md`)
+- Absence of ownership over the data system
+- Fragmented responsibility across functions and vendors
+- Lack of control as a system condition
+- Increasing effort with declining trust
+- “Exists to resolve” / “exists because” framing
+- System-level gap (not capability gap)
+- Symptoms or operational examples
+- Founder story or personal narrative
+- Services, offerings, or capabilities
+- Description of how the model works
+- Industry or sector references
+- Emotional or visionary language
+- Source and authorship of the model
+- Pattern recognition across organizations
+- Identification of structural control failure
+- Ownership of applying the model
+- Accountability as a role
+- Presence as enforcement of the system
+- Career history or timeline
+- Achievements, credentials, awards
+- Personal journey or motivations
+- Thought leadership positioning
+- Industry or technical expertise claims
+- Any form of hero narrative
+- Separation of direction, structure, and execution
+- Misalignment as a structural outcome
+- Strategy defined but not enforced
+- Execution progressing without alignment
+- Architecture evolving without control
+- Integration into a single accountable system
+- “Because” logic with clear causal chain
+- “Not layered on top” / “becomes the controlling mechanism”
+- Problem symptoms (belongs to Home)
+- Service or intervention descriptions
+- Engagement steps or methodology
+- Benefits or value statements
+- Industry or use-case examples
+- Marketing language
+- Control over outcomes vs activity
+- Single point of accountability
+- Elimination of parallel systems
+- Execution under defined direction only
+- Independence from vendors
+- Absolute, constraint-based language
+- Clear prohibitions and boundaries
+- Cultural values (e.g. integrity, collaboration)
+- Explanations or justifications
+- Examples or illustrations
+- Benefits or outcomes
+- Emotional or inspirational tone
+- Soft language (“prefer”, “typically”, “we aim to”)
+- Executive willingness to assign ownership
+- Readiness to restructure responsibilities
+- Acceptance of stopping or redefining existing initiatives
+- Commitment to operate under a single control model
+- Explicit non-fit conditions
+- “This requires” / “this is not” framing
+- Clear boundary-setting language
+- Service scope or delivery description
+- Persuasive or sales language
+- Softening conditions (“ideally”, “preferred”)
+- Industry targeting or segmentation
+- Outcomes or promises
+- Flexibility or customization messaging
+- Each section operates on ONE pattern only (no mixing)
+- No concept appears in more than one section
+- No repetition of Home (symptoms) or Services (delivery)
+- No biography, storytelling, or thought leadership drift
+- Language remains structural, controlled, and executive
+
+## Executive Data Review (`0_DRAFT_Executive_Data_Review_page_content.md`)
+- Inconsistent decisions
+- Conflicting interpretations of the same data
+- Lack of trust in reported outcomes
+- Visible activity without alignment
+- Absence of control despite data presence
+- Naming the Review
+- Explaining causes
+- Describing structure or system components
+- Any solution or intervention
+- Executive-level evaluation
+- System-level diagnostic
+- Time-bounded intervention
+- Focus on control over decisions and execution
+- Clear boundary vs audit / advisory
+- Symptoms (problems)
+- Causes of failure
+- Detailed scope breakdown
+- Outcomes or results
+- Delivery mechanics
+- Signals of misalignment becoming visible
+- Repeated inconsistency in decisions
+- Escalation of uncertainty despite data
+- Leadership questioning reliability of outputs
+- Increasing coordination friction
+- Role titles or org charts
+- Structural explanations
+- Root causes
+- Solution framing
+- Industry or size segmentation
+- Decision definition
+- Data-to-decision linkage
+- Control mechanisms
+- Alignment between decision and execution
+- Interdependence of elements
+- Why things fail
+- Symptoms or examples
+- Tools, platforms, technologies
+- Step-by-step methodology
+- Outcomes or recommendations
+- Sources of fragmentation
+- Missing or weak control points
+- Misalignment drivers
+- Structural gaps
+- Reasons decisions are inconsistent
+- Solutions or fixes
+- Future-state design
+- Engagement continuation
+- General benefits language
+- Repeating symptoms
+- Proceed to establish control
+- Continue under known constraints
+- Decision clarity post-review
+- Consequence-aware choice
+- Service catalog
+- Multiple branching options
+- Persuasion or selling language
+- Detailed execution paths
+- Re-explaining causes
+- Time-bounded
+- Executive-facing
+- Direct access to decision-makers
+- Focused and contained engagement
+- Defined interaction model
+- Why it is needed
+- Outcomes or value claims
+- Workshops / training framing
+- Open-ended advisory
+- Conversion language
+- Direct initiation
+- Executive contact
+- Clear next step
+- Immediate action
+- Multiple CTAs
+- Soft engagement options
+- Additional explanations
+- Value justification
+- Alternative paths
+
+## How We Work (v2) (`2_DRAFT_How_We_Work_page_content.md`)
+- system
+- ownership
+- control
+- unified model
+- non-fragmented engagement
+- direction + structure + execution as one
+- sequencing
+- phases
+- roles
+- governance mechanics
+- engagement formats
+- entry paths
+- triggers
+- CTA
+- why sequencing matters
+- consequence of skipping direction
+- execution without structure fails
+- structure without direction misaligns
+- control depends on order
+- detailed phases
+- role ownership
+- governance structure
+- formats
+- entry paths
+- CTA
+- defined phases
+- progression
+- dependency between phases
+- system build-up
+- controlled sequence
+- why explanation (causality)
+- role ownership
+- governance enforcement
+- formats
+- entry paths
+- CTA
+- defined roles
+- ownership boundaries
+- no overlap
+- system coordination
+- lens structure
+- service descriptions
+- phase sequencing
+- governance enforcement
+- independence
+- formats
+- CTA
+- embedded leadership
+- oversight structure
+- targeted intervention
+- format variation
+- model consistency
+- entry triggers
+- causality explanation
+- governance mechanics
+- role breakdown
+- CTA language
+- entry via direction gap
+- entry via control gap
+- entry via execution gap
+- convergence into one system
+- no parallel engagements
+- format explanation
+- governance mechanics
+- role definitions
+- phases
+- CTA language
+- Schedule Executive Data Review
+- explanation
+- multiple actions
+- supporting text
+- repetition of system logic
+
+## Industries (`0_DRAFT_Industries_page_content.md`)
+- Control vs fragmentation
+- Single ownership vs distributed ownership
+- System vs disconnected parts
+- Stability vs variability
+- Control as a position
+- Symptoms (no examples of inconsistency)
+- Causes or explanations
+- Organizational description
+- Industry references
+- Any triggers or conditions
+- Mid-to-large organizations
+- Existing systems, vendors, teams
+- Dependency on data
+- Lack of unified ownership
+- “You are here if…” framing
+- Symptoms (no decision inconsistency)
+- Structural explanation
+- Industry references
+- Fit / non-fit judgment
+- Any causal reasoning
+- Distributed ownership
+- Multiple systems without control point
+- Governance not operational
+- Parallel initiatives
+- Vendor fragmentation
+- Symptoms (no outcomes yet)
+- Industry references
+- Qualification logic
+- Solutions
+- Emotional or diagnostic framing
+- Inconsistent decisions
+- Lack of trust
+- Conflicting conclusions
+- Shifting priorities
+- Misalignment between execution and decisions
+- Causes (no “because”)
+- Structure (no system explanation)
+- Industry references
+- Solutions
+- Qualification language
+- Industry names
+- High complexity environments
+- High-frequency decision environments
+- Data-dependent operations
+- “Typically observed in…” framing
+- Symptoms repetition
+- Structural explanation
+- Fit / non-fit logic
+- Service claims
+- Causal reasoning
+- Executive recognition of control gap
+- Readiness for centralized ownership
+- Need for coordination
+- Demand for decision consistency
+- Willingness to change operating model
+- Industry references
+- Symptoms
+- Structural explanation
+- Service details
+- Negative framing
+- Tool-only expectations
+- Early-stage / low complexity
+- No executive ownership
+- Advisory-only expectations
+- No need for system-level control
+- Positive qualification
+- Industry references
+- Symptoms
+- Structural explanation
+- Soft language (must be explicit)
+- Control as entry point
+- Executive-level engagement
+- Structured start
+- Clear next step
+- Multiple options
+- Re-explaining symptoms
+- Industry references
+- Service breakdown
+- Any new concept
+- Each section operates on ONE thinking mode only
+- No sentence may belong to more than one section
+- No repetition of concepts across sections
+- “Control” is the central organizing concept across all sections
+- No solutions appear before CTA
+- Industries are supporting context, not primary segmentation
+- Each section must create forward movement, not explanation
+
+## Services (v2) (`2_DRAFT_Services_page_content.md`)
+- Ownership of the data and AI function
+- End-to-end responsibility
+- Direction, structure, execution (as one system)
+- System-level control
+- Coherent whole
+- Symptoms (no problem language)
+- Causes or explanations
+- Domains or breakdowns
+- Execution mechanics
+- Any “why this fails” framing
+- Domains as system components
+- Layers of control
+- Interdependent parts
+- Structured intervention
+- Problem symptoms
+- Root causes
+- Domain-level detail
+- Execution or delivery language
+- Repetition of ownership definition
+- Direction
+- Priorities
+- Decision ownership
+- Executive accountability
+- What decisions matter
+- Symptoms (e.g., inconsistency, confusion)
+- Causes (e.g., lack of governance)
+- Governance structures
+- Execution or delivery
+- Technical references
+- Governance
+- Ownership structures
+- Decision rights
+- System interaction
+- Vendor control
+- Symptoms (e.g., misalignment, duplication)
+- Causes (e.g., historical fragmentation)
+- Strategic direction
+- Execution activities
+- Technical architecture
+- Ongoing initiatives
+- Delivery in motion
+- Coordination challenges
+- Misalignment during execution
+- Need for intervention during activity
+- Strategy definition
+- Governance structures
+- Architecture design
+- Abstract positioning language
+- Pure structure description
+- Data flows
+- System integration
+- Technical dependencies
+- Structural constraints
+- Enablement or limitation of control
+- Tools or vendor promotion
+- Execution/project language
+- Governance definition
+- Strategic prioritization
+- Symptoms framing
+
