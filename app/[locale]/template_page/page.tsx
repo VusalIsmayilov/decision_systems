@@ -13,7 +13,7 @@ export default async function TemplatePage({
       <section className="flex scroll-mt-[5.5rem] items-start bg-[#0A1628]">
         <div className="mx-auto w-full max-w-[1280px] px-10 pb-24 pt-24 max-md:px-5 max-md:pb-16 max-md:pt-24 max-sm:pt-28 md:pt-28 lg:pb-24 lg:pt-32 xl:pt-[8.5rem]">
           <p className="mb-10 text-[12px] font-semibold uppercase leading-[1.3] tracking-[0.08em] text-[rgba(255,255,255,0.42)] max-sm:mb-9 max-sm:text-[11px]">
-            DataOfis Partners
+            DataOfis Decision Systems Design
           </p>
 
           {/* 40% contrast (left) / 60% dominant (right); mobile: dominant first; md+ matches Services/About hero split */}
@@ -121,7 +121,7 @@ export default async function TemplatePage({
           {/* [ENTRY ZONE — compressed core] */}
           <div className="max-w-[920px]">
             <h2 className="text-[40px] font-bold leading-[1.05] tracking-[-0.02em] text-white max-md:text-[32px] max-sm:text-[24px]">
-              <span className="block">DataOfis Partners defines a distinct category of data leadership:</span>
+              <span className="block">DataOfis Decision Systems Design defines a distinct category of data leadership:</span>
               <span className="block">ownership of the data and AI function as a system.</span>
             </h2>
           </div>

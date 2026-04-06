@@ -4,26 +4,26 @@ import HtmlLang from "@/components/HtmlLang";
 
 export const metadata: Metadata = {
   title: {
-    default: "DataOfis Partners — Executive Data & AI Leadership",
-    template: "%s | DataOfis Partners",
+    default: "DataOfis Decision Systems Design — Executive Data & AI Leadership",
+    template: "%s | DataOfis Decision Systems Design",
   },
   description:
-    "DataOfis Partners provides senior-level, independent data and AI leadership — strategy, architecture, governance, and execution managed as one system.",
+    "DataOfis Decision Systems Design provides senior-level, independent data and AI leadership — strategy, architecture, governance, and execution managed as one system.",
   metadataBase: new URL("https://partners.dataofis.az"),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://partners.dataofis.az",
-    siteName: "DataOfis Partners",
-    title: "DataOfis Partners — Executive Data & AI Leadership",
+    siteName: "DataOfis Decision Systems Design",
+    title: "DataOfis Decision Systems Design — Executive Data & AI Leadership",
     description:
-      "DataOfis Partners provides senior-level, independent data and AI leadership — strategy, architecture, governance, and execution managed as one system.",
+      "DataOfis Decision Systems Design provides senior-level, independent data and AI leadership — strategy, architecture, governance, and execution managed as one system.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DataOfis Partners — Executive Data & AI Leadership",
+    title: "DataOfis Decision Systems Design — Executive Data & AI Leadership",
     description:
-      "DataOfis Partners provides senior-level, independent data and AI leadership — strategy, architecture, governance, and execution managed as one system.",
+      "DataOfis Decision Systems Design provides senior-level, independent data and AI leadership — strategy, architecture, governance, and execution managed as one system.",
   },
 };
 

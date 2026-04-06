@@ -13,7 +13,7 @@ export default function HeroContent() {
         className="font-bold uppercase tracking-[0.14em] mb-6 text-sm"
         style={{ color: "rgba(10,22,40,0.3)" }}
       >
-        DataOfis Partners
+        DataOfis Decision Systems Design
       </p>
 
       {/* Headline — Type A: Hero */}
