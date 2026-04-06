@@ -8,14 +8,29 @@ export default function Footer({ locale }: { locale: Locale }) {
       <div className="max-w-[1280px] mx-auto px-5 md:px-10 pt-12 lg:pt-14 pb-8 lg:pb-10">
 
         <nav
-          className="mb-10 flex flex-wrap gap-x-10 gap-y-2 text-sm font-normal text-[rgba(255,255,255,0.65)]"
+          className="mb-10 flex flex-wrap gap-x-8 gap-y-2 text-sm font-normal text-[rgba(255,255,255,0.65)]"
           aria-label="Site structure"
         >
           <Link href={withLocale(locale, "/")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
-            Home
+            Decision Problem
           </Link>
-          <Link href={withLocale(locale, "/how-we-work")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
-            How We Work
+          <Link href={withLocale(locale, "/decision-systems")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+            Decision Systems
+          </Link>
+          <Link href={withLocale(locale, "/decision-systems-design")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+            Systems Design
+          </Link>
+          <Link href={withLocale(locale, "/how-decisions-are-structured")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+            How Decisions Are Structured
+          </Link>
+          <Link href={withLocale(locale, "/decision-systems-in-practice")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+            In Practice
+          </Link>
+          <Link href={withLocale(locale, "/decision-diagnostic/intake")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+            Diagnostic
+          </Link>
+          <Link href={withLocale(locale, "/about")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+            About
           </Link>
           <Link href={withLocale(locale, "/insights")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
             Insights

@@ -17,71 +17,87 @@ type NavCategory = {
   href: string;
   statement: string;
   items?: NavItem[];
-  cta?: { label: string; desc: string };
+  cta?: { label: string; desc: string; href: string };
 };
 
 const NAV_CATEGORIES: NavCategory[] = [
   {
     id: "home",
-    label: "Home",
-    descriptor: "Control over the data and AI system",
+    label: "Decision Problem",
+    descriptor: "Pattern recognition — recurring inconsistency",
     href: "/",
     statement:
-      "Your data system is not under control.\n\nMost organizations operate in a fragmented state—where ownership is distributed and decisions do not form within a single system.\n\nControl is a structural position, not a matter of tools or investment.",
+      "The same decision is made repeatedly.\nThe outcome changes.\n\nAcross teams.\nAcross time.\nAcross the same conditions.\n\nThis is not variation.\nIt is a pattern.",
   },
   {
-    id: "how-we-work",
-    label: "How We Work",
-    descriptor: "One system. Not separate efforts.",
-    href: "/how-we-work",
+    id: "decision-systems",
+    label: "Decision Systems",
+    descriptor: "Structural reframe — cause identification",
+    href: "/decision-systems",
     statement:
-      "A single system. Not separate efforts.\n\nDirection, structure, and execution operate together under unified control.",
+      "The inconsistency is not caused by data, tools, or execution.\n\nIt persists because the decision itself is not structurally defined.\n\nEach time the decision occurs,\nit is reconstructed.\n\nThe structure does not exist as a stable system.",
   },
   {
-    id: "services",
-    label: "Services",
-    descriptor: "End-to-end ownership of the data and AI function as one system",
-    href: "/services",
+    id: "decision-systems-design",
+    label: "Decision Systems Design",
+    descriptor: "Category formation — system definition",
+    href: "/decision-systems-design",
     statement:
-      "The data and AI function, operated as one system\n\nDirection, structure, and execution operate together under a single model of control.",
+      "A recurring decision can be defined as a system.\n\nIt operates through:\ndecision, trigger, inputs, logic, ownership, workflow, action, feedback.\n\nWhen these are specified,\nthe decision becomes repeatable.",
   },
   {
-    id: "industries",
-    label: "Industries",
-    descriptor: "Organizations operating at scale where data control is a strategic requirement",
-    href: "/industries",
+    id: "how-decisions-are-structured",
+    label: "How Decisions Are Structured",
+    descriptor: "Mechanism — structure visibility",
+    href: "/how-decisions-are-structured",
     statement:
-      "Fragmented across teams without a single point of control.\n\nThis is not a difference in tools or investment. It is a difference in how the function is owned and run.\n\nThis defines whether the organization operates under control or fragmentation.",
+      "The structure of a decision is not documented.\nIt is observed.\n\nBy examining how decisions actually happen,\ntheir structure becomes visible.\n\nOnly then can variability be traced.",
+  },
+  {
+    id: "decision-systems-in-practice",
+    label: "Decision Systems in Practice",
+    descriptor: "Proof — applied consistency",
+    href: "/decision-systems-in-practice",
+    statement:
+      "The same decision can operate in two ways.\n\nUnstructured:\nvariable inputs, shifting logic, inconsistent action.\n\nStructured:\ndefined conditions, fixed logic, consistent outcomes.\n\nThe difference is not capability.\nIt is structure.",
+  },
+  {
+    id: "decision-diagnostic",
+    label: "Decision Diagnostic",
+    descriptor: "Commitment — structured assessment",
+    href: "/decision-diagnostic",
+    statement:
+      "If outcomes vary,\nthe decision is not fully defined.\n\nThe diagnostic determines:\n\n• how the decision currently operates\n• where variability enters\n• which elements are missing\n\nThis is the first required step.",
+    cta: {
+      label: "Request a Decision Diagnostic",
+      desc: "Structured intake form—start the evaluation.",
+      href: "/decision-diagnostic/intake",
+    },
   },
   {
     id: "insights",
     label: "Insights",
-    descriptor: "Where control over the data function is defined",
+    descriptor: "Reinforcement — pattern expansion",
     href: "/insights",
     statement:
-      "Control over the data and AI function is a distinct executive position.\n\nThese insights examine the distinction between a controlled system and fragmented activity at the level of ownership and structure.",
+      "Decision failures repeat in recognizable forms.\n\nMisalignment.\nConflicting interpretation.\nInconsistent action.\n\nThese are not isolated issues.\n\nThey reveal how decisions actually operate.",
   },
   {
     id: "about",
     label: "About",
-    descriptor: "A firm defined by the system it enforces",
+    descriptor: "Authority — credibility anchor",
     href: "/about",
     statement:
-      "This firm exists to establish control.\n\nMost organizations do not operate the data and AI function as a controlled system.\n\nThis firm exists because that condition persists.",
-  },
-  {
-    id: "executive-data-review",
-    label: "Schedule Review",
-    descriptor: "Initiate executive-level assessment",
-    href: "/executive-data-review",
-    statement:
-      "Proceed with a focused executive assessment of whether your data function operates under control.",
-    cta: {
-      label: "Schedule Executive Data Review",
-      desc: "Senior-level engagement. Not a sales call.",
-    },
+      "The focus is one problem:\nhow recurring decisions operate.\n\nWork spans data, operations, and governance—\nat the point where decisions are formed.\n\nThis is not advisory.\nIt is structural definition.",
   },
 ];
+
+function resolveCtaHref(locale: Locale, href: string): string {
+  if (href.startsWith("mailto:") || href.startsWith("http://") || href.startsWith("https://")) {
+    return href;
+  }
+  return withLocale(locale, href);
+}
 
 // Gap between sub-items: tighter for plain bullet lists, wider when items have descs
 function item_gap(cat: NavCategory): string {
@@ -92,12 +108,14 @@ function item_gap(cat: NavCategory): string {
 // Pre-select the chapter that matches the current page when overlay opens
 function getInitialChapterId(pathname: string): string {
   const p = stripLocalePrefix(pathname);
-  if (p.startsWith("/executive-data-review")) return "executive-data-review";
-  if (p.startsWith("/how-we-work")) return "how-we-work";
-  if (p.startsWith("/services")) return "services";
-  if (p.startsWith("/industries")) return "industries";
-  if (p.startsWith("/insights")) return "insights";
+  if (p.startsWith("/decision-diagnostic/intake")) return "decision-diagnostic";
+  if (p.startsWith("/decision-diagnostic")) return "decision-diagnostic";
+  if (p.startsWith("/decision-systems-in-practice")) return "decision-systems-in-practice";
+  if (p.startsWith("/decision-systems-design")) return "decision-systems-design";
+  if (p.startsWith("/decision-systems")) return "decision-systems";
+  if (p.startsWith("/how-decisions-are-structured")) return "how-decisions-are-structured";
   if (p.startsWith("/about")) return "about";
+  if (p.startsWith("/insights")) return "insights";
   if (p === "/") return "home";
   return "home";
 }
@@ -206,7 +224,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
       style={{ background: "#06101e" }}
       role="dialog"
       aria-modal="true"
-      aria-label="Navigation"
+      aria-label="DataOfis Decision Systems Design navigation"
     >
       {/* ── Top bar ── */}
       <div className="flex-shrink-0 border-b border-[rgba(255,255,255,0.05)]">
@@ -217,9 +235,9 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
           <Link
             href={L("/")}
             onClick={handleClose}
-            className="-mx-2 inline-flex min-h-11 items-center px-2 text-base font-semibold tracking-tight text-white transition-opacity hover:opacity-75"
+            className="-mx-2 inline-flex min-h-11 max-w-[min(100%,520px)] items-center px-2 text-left text-sm font-semibold leading-snug tracking-tight text-white transition-opacity hover:opacity-75 sm:text-base"
           >
-            DataOfis Partners
+            DataOfis Decision Systems Design
           </Link>
 
           <button
@@ -333,7 +351,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                 {active.statement.split("\n\n").map((para, i) => (
                   <p
                     key={i}
-                    className={i > 0 ? "mt-5" : ""}
+                    className={`whitespace-pre-line ${i > 0 ? "mt-5" : ""}`}
                     style={{
                       fontSize: i === 0 ? "22px" : "17px",
                       fontWeight: i === 0 ? 500 : 400,
@@ -394,7 +412,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
               {active.cta && (
                 <div className="mt-8">
                   <Link
-                    href={L("/executive-data-review")}
+                    href={resolveCtaHref(locale, active.cta.href)}
                     onClick={handleClose}
                     className="inline-flex min-h-11 items-center px-6 py-4 transition-colors duration-200 hover:opacity-90"
                     style={{
@@ -497,7 +515,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                   {cat.cta && (
                     <div className="mt-5">
                       <Link
-                        href={L("/executive-data-review")}
+                        href={resolveCtaHref(locale, cat.cta.href)}
                         onClick={handleClose}
                         className="inline-flex min-h-11 items-center px-5 py-3 transition-colors duration-200 hover:opacity-90"
                         style={{

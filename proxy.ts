@@ -6,7 +6,7 @@ import {
   UNDER_CONSTRUCTION_PATH,
 } from "@/lib/site-gate";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const host = request.headers.get("host");
   const { pathname } = request.nextUrl;
 
@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  /* Internal route only exists for gated rewrites — avoid /en/under-construction 404 on live hosts */
+  /* Internal route only exists for gated rewrites -- avoid /en/under-construction 404 on live hosts */
   if (pathname === UNDER_CONSTRUCTION_PATH) {
     const url = request.nextUrl.clone();
     url.pathname = `/${defaultLocale}`;
