@@ -330,7 +330,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
 
 
           {/* Right column — 62% */}
-          <div className="flex min-w-0 flex-1 flex-col justify-start py-8 pl-10 md:py-10 md:pb-12 md:pl-14">
+          <div className="flex min-w-0 flex-1 flex-col justify-center py-8 pl-10 md:py-10 md:pb-12 md:pl-14">
             <div className={phase === "exiting" ? "chapter-exit" : "chapter-enter"}>
 
               {/* Panel title — strong headline */}
