@@ -7,18 +7,24 @@ import { locales, stripLocalePrefix, withLocale } from "@/lib/i18n";
 
 export type LanguageSwitcherVariant = "footer" | "header";
 
-const headerShell =
-  "flex min-h-11 items-center gap-1.5 border border-[rgba(10,22,40,0.24)] bg-[rgba(255,255,255,0.9)] px-[14px] py-2.5 text-[12px] font-normal tracking-tight text-[rgba(10,22,40,0.82)] shadow-none";
-
-function LanguageSwitcherFallback({ variant }: { variant: LanguageSwitcherVariant }) {
+function LanguageSwitcherFallback({
+  variant,
+  onDarkSection,
+}: {
+  variant: LanguageSwitcherVariant;
+  onDarkSection: boolean;
+}) {
   if (variant === "header") {
+    const active = onDarkSection ? "text-[rgba(255,255,255,0.96)]" : "text-[rgba(10,22,40,0.95)]";
+    const sep = onDarkSection ? "text-[rgba(255,255,255,0.45)]" : "text-[rgba(10,22,40,0.35)]";
+    const inactive = onDarkSection ? "text-[rgba(255,255,255,0.62)]" : "text-[rgba(10,22,40,0.55)]";
     return (
-      <div className={headerShell} style={{ borderRadius: 0 }} aria-hidden>
-        <span className="text-[rgba(10,22,40,0.82)]">EN</span>
-        <span className="text-[rgba(10,22,40,0.35)]">/</span>
-        <span className="text-[rgba(10,22,40,0.45)]">AZ</span>
-        <span className="text-[rgba(10,22,40,0.35)]">/</span>
-        <span className="text-[rgba(10,22,40,0.45)]">RU</span>
+      <div className="flex min-h-11 select-none items-center gap-1.5 px-2 py-2 text-[12px] font-medium tracking-tight" aria-hidden>
+        <span className={`font-semibold ${active}`}>EN</span>
+        <span className={sep}>/</span>
+        <span className={inactive}>AZ</span>
+        <span className={sep}>/</span>
+        <span className={inactive}>RU</span>
       </div>
     );
   }
@@ -33,17 +39,24 @@ function LanguageSwitcherFallback({ variant }: { variant: LanguageSwitcherVarian
   );
 }
 
-function LanguageSwitcherInner({ variant }: { variant: LanguageSwitcherVariant }) {
+function LanguageSwitcherInner({
+  variant,
+  onDarkSection,
+}: {
+  variant: LanguageSwitcherVariant;
+  onDarkSection: boolean;
+}) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const stripped = stripLocalePrefix(pathname);
   const q = searchParams.toString();
   const pathWithQuery = q ? `${stripped}?${q}` : stripped;
 
-  const sep =
-    variant === "header"
-      ? "text-[rgba(10,22,40,0.35)]"
-      : "text-[rgba(255,255,255,0.65)]";
+  const sep = variant === "header"
+    ? onDarkSection
+      ? "text-[rgba(255,255,255,0.45)]"
+      : "text-[rgba(10,22,40,0.35)]"
+    : "text-[rgba(255,255,255,0.65)]";
 
   const linkBase =
     variant === "header"
@@ -52,21 +65,25 @@ function LanguageSwitcherInner({ variant }: { variant: LanguageSwitcherVariant }
 
   const linkActive =
     variant === "header"
-      ? "text-[rgba(10,22,40,0.95)] font-medium pointer-events-none"
+      ? onDarkSection
+        ? "text-[rgba(255,255,255,0.96)] font-semibold pointer-events-none"
+        : "text-[rgba(10,22,40,0.95)] font-semibold pointer-events-none"
       : "text-[rgba(255,255,255,0.75)] pointer-events-none";
 
   const linkInactive =
     variant === "header"
-      ? "text-[rgba(10,22,40,0.52)] hover:text-[rgba(10,22,40,0.88)]"
+      ? onDarkSection
+        ? "text-[rgba(255,255,255,0.62)] hover:text-white"
+        : "text-[rgba(10,22,40,0.52)] hover:text-[rgba(10,22,40,0.88)]"
       : "text-[rgba(255,255,255,0.55)] hover:text-[rgba(255,255,255,0.9)]";
 
   const wrapClass =
     variant === "header"
-      ? `${headerShell} select-none`
+      ? "flex min-h-11 select-none items-center gap-1.5 px-2 py-2 text-[12px] font-medium tracking-tight"
       : "flex items-center gap-1.5 text-sm text-[rgba(255,255,255,0.65)]";
 
   return (
-    <div className={wrapClass} style={variant === "header" ? { borderRadius: 0 } : undefined}>
+    <div className={wrapClass}>
       {locales.map((loc, i) => {
         const active = pathname === withLocale(loc, "/") || pathname.startsWith(`/${loc}/`);
         return (
@@ -89,12 +106,14 @@ function LanguageSwitcherInner({ variant }: { variant: LanguageSwitcherVariant }
 
 export default function LanguageSwitcher({
   variant = "footer",
+  onDarkSection = false,
 }: {
   variant?: LanguageSwitcherVariant;
+  onDarkSection?: boolean;
 }) {
   return (
-    <Suspense fallback={<LanguageSwitcherFallback variant={variant} />}>
-      <LanguageSwitcherInner variant={variant} />
+    <Suspense fallback={<LanguageSwitcherFallback variant={variant} onDarkSection={onDarkSection} />}>
+      <LanguageSwitcherInner variant={variant} onDarkSection={onDarkSection} />
     </Suspense>
   );
 }
