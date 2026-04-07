@@ -5,7 +5,8 @@
   /* Backgrounds */
   --bg-navy: #0A1628;
   --bg-white: #FFFFFF;
-  --bg-gray: #F4F5F7;
+  /* Steel / slate blue-grey (SectionWrapper bg="gray") */
+  --bg-gray: #E5EDF4;
 
   /* Typography on navy */
   --text-on-navy-primary: #FFFFFF;

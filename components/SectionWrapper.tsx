@@ -13,7 +13,7 @@ interface SectionWrapperProps {
 const bgMap = {
   navy: 'bg-[#0A1628]',
   white: 'bg-white',
-  gray: 'bg-[#F4F5F7]',
+  gray: 'bg-[#E5EDF4]',
 };
 
 export default function SectionWrapper({ bg, children, className = '', contentClassName = '', id }: SectionWrapperProps) {

@@ -1,11 +1,15 @@
 import SectionWrapper from '@/components/SectionWrapper';
+import Link from 'next/link';
+import { withLocale, type Locale } from '@/lib/i18n';
 
 export default async function AboutPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
+  const { locale: loc } = await params;
+  const locale = loc as Locale;
+  const L = (path: string) => withLocale(locale, path);
 
   return (
     <>
@@ -95,6 +99,15 @@ export default async function AboutPage({
             <p className="max-w-[560px] text-right text-[17px] font-medium leading-[1.6] text-[rgba(255,255,255,0.9)] max-sm:text-[15px]">
               Request a Decision Diagnostic
             </p>
+            <div className="mt-10 w-full flex justify-end">
+              <Link
+                href={L('/decision-diagnostic/intake')}
+                className="inline-flex min-h-11 max-w-full items-center justify-center bg-[#2B5CE6] px-10 py-3 text-center text-[15px] font-semibold leading-none tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#1E4AC4] max-sm:px-5 max-sm:text-[13px] max-sm:leading-snug"
+                style={{ borderRadius: 0 }}
+              >
+                Request a Decision Diagnostic
+              </Link>
+            </div>
           </div>
         </div>
       </SectionWrapper>

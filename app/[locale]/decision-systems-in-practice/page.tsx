@@ -1,4 +1,6 @@
 import SectionWrapper from '@/components/SectionWrapper';
+import Link from 'next/link';
+import { withLocale, type Locale } from '@/lib/i18n';
 
 const BEFORE_LINES = [
   'No explicit definition of “at-risk customer” (usage decline vs complaints vs inactivity)',
@@ -33,7 +35,9 @@ export default async function DecisionSystemsInPracticePage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
+  const { locale: loc } = await params;
+  const locale = loc as Locale;
+  const L = (path: string) => withLocale(locale, path);
 
   return (
     <>
@@ -124,6 +128,15 @@ export default async function DecisionSystemsInPracticePage({
               <span className="block">Where does your decision</span>
               <span className="block">structure break?</span>
             </p>
+          </div>
+          <div className="mt-10 flex w-full justify-end border-t border-[rgba(10,22,40,0.08)] pt-10 lg:mt-12 lg:pt-12">
+            <Link
+              href={L('/decision-diagnostic/intake')}
+              className="inline-flex min-h-11 max-w-full items-center justify-center bg-[#2B5CE6] px-10 py-3 text-center text-[15px] font-semibold leading-none tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#1E4AC4] max-sm:px-5 max-sm:text-[13px] max-sm:leading-snug"
+              style={{ borderRadius: 0 }}
+            >
+              Request a Decision Diagnostic →
+            </Link>
           </div>
         </div>
       </SectionWrapper>
