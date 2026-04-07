@@ -87,7 +87,7 @@ const NAV_CATEGORIES: NavCategory[] = [
 ];
 
 function resolveCtaHref(locale: Locale, href: string): string {
-  if (href.startsWith("mailto:") || href.startsWith("http://") || href.startsWith("https://")) {
+  if (href.startsWith("http://") || href.startsWith("https://")) {
     return href;
   }
   return withLocale(locale, href);

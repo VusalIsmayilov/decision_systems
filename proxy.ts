@@ -8,6 +8,11 @@ export function proxy(request: NextRequest) {
   const parts = pathname.split("/").filter(Boolean);
   const first = parts[0];
 
+  // Keep internal API routes outside locale redirects.
+  if (first === "api") {
+    return NextResponse.next();
+  }
+
   // Insights page is intentionally hidden: redirect all direct requests to locale home.
   if (first && isLocale(first) && parts[1] === "insights") {
     const url = request.nextUrl.clone();
@@ -32,5 +37,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };

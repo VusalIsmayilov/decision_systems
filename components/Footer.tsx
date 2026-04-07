@@ -35,12 +35,9 @@ export default function Footer({ locale }: { locale: Locale }) {
           <div className="flex flex-col gap-1.5">
             <span className="text-sm font-medium text-[rgba(255,255,255,0.65)]">DataOfis Decision Systems Design</span>
             <span className="text-sm text-[rgba(255,255,255,0.65)]">Baku, Azerbaijan</span>
-            <a
-              href="mailto:contact@dataofis.az"
-              className="text-sm text-[rgba(255,255,255,0.75)] hover:text-[rgba(255,255,255,0.9)] transition-colors"
-            >
+            <span className="text-sm text-[rgba(255,255,255,0.75)]">
               contact@dataofis.az
-            </a>
+            </span>
           </div>
 
           {/* Right — LinkedIn + language */}

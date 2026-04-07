@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-const MAIL = "contact@dataofis.az";
-
 const labelClass =
   "text-[10px] font-semibold uppercase leading-[1.3] tracking-[0.11em] text-[rgba(90,100,120,0.68)]";
 const inputClass =
@@ -18,35 +16,12 @@ const INCONSISTENCY = [
   { name: "inc_other", label: "other" },
 ] as const;
 
-function buildMailtoBody(fd: FormData): string {
-  const lines: string[] = [];
-  lines.push(`Name: ${String(fd.get("name") ?? "").trim()}`);
-  lines.push(`Company: ${String(fd.get("company") ?? "").trim()}`);
-  lines.push(`Your role: ${String(fd.get("role") ?? "").trim()}`);
-  lines.push("");
-  lines.push(
-    "Which recurring decision produces inconsistent outcomes?",
-    String(fd.get("decision") ?? "").trim(),
-    "",
-    "Where does inconsistency appear:",
-  );
-  for (const { name, label } of INCONSISTENCY) {
-    if (fd.get(name) === "on") lines.push(`- ${label}`);
-  }
-  lines.push(
-    "",
-    "How does this decision currently happen?",
-    String(fd.get("how_happens") ?? "").trim(),
-    "",
-    `Email: ${String(fd.get("email") ?? "").trim()}`,
-  );
-  return lines.join("\n");
-}
-
 export default function DiagnosticIntakeForm() {
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -55,10 +30,46 @@ export default function DiagnosticIntakeForm() {
       setError("Select at least one option for where inconsistency appears.");
       return;
     }
+
+    const email = String(fd.get("email") ?? "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Enter a valid email address.");
+      return;
+    }
+
     setError(null);
-    const body = encodeURIComponent(buildMailtoBody(fd));
-    const subject = encodeURIComponent("Decision Diagnostic Intake");
-    window.location.href = `mailto:${MAIL}?subject=${subject}&body=${body}`;
+    setSuccess(null);
+    setIsSending(true);
+    try {
+      const payload = {
+        name: String(fd.get("name") ?? "").trim(),
+        company: String(fd.get("company") ?? "").trim(),
+        role: String(fd.get("role") ?? "").trim(),
+        decision: String(fd.get("decision") ?? "").trim(),
+        inconsistencyWhere: INCONSISTENCY.filter(({ name }) => fd.get(name) === "on").map(({ label }) => label),
+        howHappens: String(fd.get("how_happens") ?? "").trim(),
+        email,
+      };
+
+      const res = await fetch("/api/decision-diagnostic", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const result = (await res.json().catch(() => null)) as { error?: string } | null;
+        setError(result?.error || "Submission failed. Please try again.");
+        return;
+      }
+
+      form.reset();
+      setSuccess("Request received. We will review your decision context and respond by email.");
+    } catch {
+      setError("Submission failed. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -153,11 +164,6 @@ export default function DiagnosticIntakeForm() {
             </li>
           ))}
         </ul>
-        {error ? (
-          <p className="mt-3 text-[14px] font-medium leading-[1.4] text-[#0A1628]" role="alert">
-            {error}
-          </p>
-        ) : null}
       </fieldset>
 
       <div className={fieldCol}>
@@ -195,11 +201,22 @@ export default function DiagnosticIntakeForm() {
       <div className="border-t border-[rgba(10,22,40,0.08)] pt-8">
         <button
           type="submit"
-          className="inline-flex min-h-11 w-full max-w-full items-center justify-center bg-[#2B5CE6] px-10 py-3 text-center text-[15px] font-semibold leading-none tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#1E4AC4] sm:w-auto max-sm:px-5 max-sm:text-[13px] max-sm:leading-snug"
+          disabled={isSending}
+          className="inline-flex min-h-11 w-full max-w-full items-center justify-center bg-[#2B5CE6] px-10 py-3 text-center text-[15px] font-semibold leading-none tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#1E4AC4] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto max-sm:px-5 max-sm:text-[13px] max-sm:leading-snug"
           style={{ borderRadius: 0 }}
         >
-          Request Decision Diagnostic
+          {isSending ? "Sending..." : "Request Decision Diagnostic"}
         </button>
+        {success ? (
+          <p className="mt-4 text-[14px] font-medium leading-[1.4] text-[#0A1628]" role="status">
+            {success}
+          </p>
+        ) : null}
+        {error ? (
+          <p className="mt-4 text-[14px] font-medium leading-[1.4] text-[#0A1628]" role="alert">
+            {error}
+          </p>
+        ) : null}
       </div>
     </form>
   );
