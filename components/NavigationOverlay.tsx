@@ -20,6 +20,8 @@ type NavCategory = {
   cta?: { label: string; desc: string; href: string };
 };
 
+const MAIN_SITE_URL = "https://www.dataofis.az";
+
 const NAV_CATEGORIES: NavCategory[] = [
   {
     id: "home",
@@ -232,13 +234,13 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
           className="flex w-full items-center justify-between px-5 md:px-10"
           style={{ height: "72px" }}
         >
-          <Link
-            href={L("/")}
+          <a
+            href={MAIN_SITE_URL}
             onClick={handleClose}
-            className="-mx-2 inline-flex min-h-11 max-w-[min(100%,520px)] items-center px-2 text-left text-sm font-semibold leading-snug tracking-tight text-white transition-opacity hover:opacity-75 sm:text-base"
+            className="-mx-2 inline-flex min-h-11 max-w-[min(100%,520px)] items-center px-2 text-left text-sm font-bold leading-snug tracking-tight text-white transition-opacity hover:opacity-75 sm:text-base"
           >
-            DataOfis Decision Systems Design
-          </Link>
+            DataOfis (← go to main router)
+          </a>
 
           <button
             ref={closeButtonRef}
