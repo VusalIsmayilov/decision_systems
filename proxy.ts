@@ -8,6 +8,19 @@ export function proxy(request: NextRequest) {
   const parts = pathname.split("/").filter(Boolean);
   const first = parts[0];
 
+  // Insights page is intentionally hidden: redirect all direct requests to locale home.
+  if (first && isLocale(first) && parts[1] === "insights") {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${first}`;
+    return NextResponse.redirect(url);
+  }
+
+  if (first === "insights") {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${defaultLocale}`;
+    return NextResponse.redirect(url);
+  }
+
   if (first && isLocale(first)) {
     return NextResponse.next();
   }

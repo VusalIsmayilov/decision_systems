@@ -46,9 +46,11 @@ export default async function AboutPage({
             <div className="order-2 max-w-[280px] text-[15px] font-normal leading-[1.55] text-[#5A6478] max-sm:max-w-none max-sm:text-[14px] lg:order-1 lg:pt-0.5">
               <p>Organizations invest in data, reporting, and execution.</p>
             </div>
-            <div className="order-1 flex max-w-[620px] flex-col gap-6 text-[17px] font-medium leading-[1.55] text-[#0A1628] max-sm:gap-5 max-sm:text-[16px] lg:order-2">
-              <p>The decision layer between them is rarely defined.</p>
-              <p>This work focuses on that layer.</p>
+            <div className="order-1 flex max-w-[620px] flex-col gap-6 text-[17px] font-normal leading-[1.55] text-[#5A6478] max-sm:gap-5 max-sm:text-[15px] lg:order-2">
+              <p>Yet when decisions repeat, outcomes still vary.</p>
+              <p className="font-medium text-[#0A1628]">The gap is not capability.</p>
+              <p className="font-medium text-[#0A1628]">It is that the decision itself is not defined.</p>
+              <p className="font-semibold text-[#0A1628]">This work focuses on that layer.</p>
             </div>
           </div>
         </div>
@@ -63,23 +65,18 @@ export default async function AboutPage({
             Experience in decision, data, and operational structures
           </h2>
           <div className="mt-9 border-t border-[rgba(10,22,40,0.08)] pt-9 text-[17px] font-medium leading-[1.48] text-[rgba(69,82,104,0.84)] max-sm:text-[15px]">
-            <p>
-              <span className="block">
-                Experience includes direct responsibility for enterprise decision environments
-              </span>
+            <p className="text-[#0A1628]">This perspective comes from working inside environments where:</p>
+            <p className="mt-7">
+              <span className="block">the same decision produced different outcomes</span>
+              <span className="block">across teams</span>
             </p>
-            <p className="mt-7 pl-6 md:mt-8 md:pl-10">
-              <span className="block">
-                where data, analytics, and operational workflows intersect,
-              </span>
-            </p>
-            <p className="mt-7 md:mt-8">
-              <span className="block">
-                including ownership of how decisions are defined, governed, and executed
-              </span>
-            </p>
-            <p className="mt-7 pl-6 md:mt-8 md:pl-10">
-              <span className="block">across multiple functions and teams.</span>
+            <p className="mt-7 pl-6 md:pl-10">shared data did not lead to shared actions</p>
+            <p className="mt-7">ownership shifted depending on context</p>
+            <p className="mt-7 pl-6 md:pl-10">decisions restarted in every cycle</p>
+            <p className="mt-8 text-[#0A1628]">In these conditions, inconsistency is not occasional.</p>
+            <p className="mt-6 text-[#0A1628]">It is systemic.</p>
+            <p className="mt-8 text-[#0A1628]">
+              Defining how decisions actually operate becomes necessary before anything can be improved.
             </p>
           </div>
         </div>

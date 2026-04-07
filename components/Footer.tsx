@@ -15,9 +15,6 @@ export default function Footer({ locale }: { locale: Locale }) {
             <Link href={withLocale(locale, "/decision-systems")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
               Decision Systems
             </Link>
-            <Link href={withLocale(locale, "/insights")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
-              Insights
-            </Link>
             <Link href={withLocale(locale, "/about")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
               About
             </Link>

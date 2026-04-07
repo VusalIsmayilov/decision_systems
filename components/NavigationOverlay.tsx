@@ -77,14 +77,6 @@ const NAV_CATEGORIES: NavCategory[] = [
     },
   },
   {
-    id: "insights",
-    label: "Insights",
-    descriptor: "Reinforcement — pattern expansion",
-    href: "/insights",
-    statement:
-      "Decision failures repeat in recognizable forms.\n\nMisalignment.\nConflicting interpretation.\nInconsistent action.\n\nThese are not isolated issues.\n\nThey reveal how decisions actually operate.",
-  },
-  {
     id: "about",
     label: "About",
     descriptor: "Authority — credibility anchor",
@@ -117,7 +109,6 @@ function getInitialChapterId(pathname: string): string {
   if (p.startsWith("/decision-systems")) return "decision-systems";
   if (p.startsWith("/how-decisions-are-structured")) return "how-decisions-are-structured";
   if (p.startsWith("/about")) return "about";
-  if (p.startsWith("/insights")) return "insights";
   if (p === "/") return "home";
   return "home";
 }
@@ -281,19 +272,12 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                   const isActive = cat.id === activeId;
                   return (
                     <li key={cat.id}>
-                      <button
-                        type="button"
+                      <Link
+                        href={L(cat.href)}
                         onMouseEnter={() => selectChapter(cat.id)}
                         onFocus={() => selectChapter(cat.id)}
-                        onClick={() => {
-                          if (activeId !== cat.id) {
-                            selectChapter(cat.id);
-                            return;
-                          }
-                          handleClose();
-                          window.location.href = L(cat.href);
-                        }}
-                        className="w-full cursor-pointer py-2 text-left"
+                        onClick={handleClose}
+                        className="block w-full cursor-pointer py-2 text-left"
                       >
                         <span
                           className="block transition-all duration-200"
@@ -322,7 +306,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                         >
                           {cat.descriptor}
                         </span>
-                      </button>
+                      </Link>
                     </li>
                   );
                 })}
