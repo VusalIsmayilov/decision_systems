@@ -5,7 +5,7 @@ import { useState } from "react";
 const labelClass =
   "text-[10px] font-semibold uppercase leading-[1.3] tracking-[0.11em] text-[rgba(90,100,120,0.68)]";
 const inputClass =
-  "w-full border border-[rgba(10,22,40,0.12)] bg-white px-4 py-2.5 text-[16px] leading-[1.5] text-[#0A1628] placeholder:text-[rgba(10,22,40,0.3)] transition-colors focus:border-[#0A1628] focus:outline-none max-sm:text-[15px]";
+  "w-full min-w-0 border border-[rgba(10,22,40,0.12)] bg-white px-4 py-2.5 text-[16px] leading-[1.5] text-[#0A1628] placeholder:text-[rgba(10,22,40,0.3)] transition-colors focus:border-[#0A1628] focus:outline-none";
 const fieldCol = "flex flex-col gap-2";
 
 const INCONSISTENCY = [
@@ -75,7 +75,7 @@ export default function DiagnosticIntakeForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex w-full flex-col gap-8"
+      className="flex min-w-0 w-full flex-col gap-8"
       style={{ borderRadius: 0 }}
       noValidate
     >

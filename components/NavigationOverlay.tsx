@@ -228,7 +228,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
           <a
             href={MAIN_SITE_URL}
             onClick={handleClose}
-            className="-mx-2 inline-flex min-h-11 max-w-[min(100%,520px)] items-center px-2 text-left text-sm font-bold leading-snug tracking-tight text-white transition-opacity hover:opacity-75 sm:text-base"
+            className="-mx-2 inline-flex min-h-11 min-w-0 max-w-[min(100%,calc(100vw-5rem))] items-center break-words px-2 pr-3 text-left text-sm font-bold leading-snug tracking-tight text-white transition-opacity hover:opacity-75 sm:max-w-[min(100%,520px)] sm:text-base"
           >
             DataOfis (← go to main router)
           </a>
@@ -263,7 +263,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
 
           {/* Left column — 38% */}
           <div
-            className="flex shrink-0 flex-col justify-start py-8 md:py-10 md:pb-12"
+            className="flex min-w-0 shrink-0 flex-col justify-start py-8 md:py-10 md:pb-12"
             style={{ width: "38%" }}
           >
             <nav aria-label="Primary navigation">
@@ -280,7 +280,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                         className="block w-full cursor-pointer py-2 text-left"
                       >
                         <span
-                          className="block transition-all duration-200"
+                          className="block break-words transition-all duration-200"
                           style={{
                             fontSize: "40px",
                             fontWeight: isActive ? 700 : 500,
@@ -316,12 +316,12 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
 
 
           {/* Right column — 62% */}
-          <div className="flex min-w-0 flex-1 flex-col justify-center py-8 pl-10 md:py-10 md:pb-12 md:pl-14">
+          <div className="flex min-w-0 flex-1 flex-col justify-center py-8 pl-6 md:py-10 md:pb-12 md:pl-10 lg:pl-14">
             <div className={phase === "exiting" ? "chapter-exit" : "chapter-enter"}>
 
               {/* Panel title — strong headline */}
               <p
-                className="mb-7"
+                className="mb-7 break-words"
                 style={{
                   fontSize: "36px",
                   fontWeight: 700,
@@ -437,7 +437,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                   <Link
                     href={L(cat.href)}
                     onClick={handleClose}
-                    className="-mx-2 mb-1.5 block px-2 py-2 text-white transition-opacity hover:opacity-75"
+                    className="-mx-2 mb-1.5 block break-words px-2 py-2 text-white transition-opacity hover:opacity-75"
                     style={{
                       fontSize: "22px",
                       fontWeight: 700,

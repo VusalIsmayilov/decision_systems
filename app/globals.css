@@ -55,6 +55,18 @@
   --page-x: 1.25rem; /* Tailwind px-5 */
   --nav-chip-left: calc((100vw - min(1280px, 100vw)) / 2 + var(--page-x));
   --nav-chip-right: calc((100vw - min(1280px, 100vw)) / 2 + var(--page-x));
+
+  /*
+   * Space below fixed header (48px top + logo/nav row + buffer).
+   * Used for hero padding-top, scroll-padding-top, and section scroll-margin.
+   */
+  --header-offset: 7.25rem;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --header-offset: 10.25rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -89,8 +101,8 @@
 
 html {
   scroll-behavior: smooth;
-  /* Fixed menu (~48px + ~44px chip); keeps hash targets out from under chrome */
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: var(--header-offset);
+  overflow-x: clip;
 }
 
 body {
@@ -100,6 +112,7 @@ body {
   background: var(--white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
 /* Process flow connector line */

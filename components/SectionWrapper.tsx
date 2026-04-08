@@ -22,11 +22,11 @@ export default function SectionWrapper({ bg, children, className = '', contentCl
   return (
     <section
       id={id}
-      className={`${bgMap[bg]} pt-24 pb-12 sm:pb-20 md:py-24 lg:py-28 xl:py-32 2xl:py-[120px] ${id ? 'scroll-mt-[5.5rem]' : ''} ${className}`}
+      className={`${bgMap[bg]} pt-24 pb-12 sm:pb-20 md:py-24 lg:py-28 xl:py-32 2xl:py-[120px] ${id ? "scroll-mt-[var(--header-offset)]" : ""} ${className}`}
     >
       <div
         ref={ref}
-        className={`section-animate max-w-[1280px] mx-auto px-10 max-md:px-5 ${contentClassName}`}
+        className={`section-animate mx-auto min-w-0 max-w-[1280px] px-10 max-md:px-5 ${contentClassName}`}
       >
         {children}
       </div>

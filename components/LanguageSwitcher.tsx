@@ -15,7 +15,7 @@ function LanguageSwitcherFallback({
   onDarkSection: boolean;
 }) {
   if (variant === "header") {
-    const active = onDarkSection ? "text-[rgba(255,255,255,0.96)]" : "text-[rgba(10,22,40,0.95)]";
+    const active = onDarkSection ? "text-white" : "text-[#0A1628]";
     const sep = onDarkSection ? "text-[rgba(255,255,255,0.45)]" : "text-[rgba(10,22,40,0.35)]";
     const inactive = onDarkSection ? "text-[rgba(255,255,255,0.62)]" : "text-[rgba(10,22,40,0.55)]";
     return (
@@ -60,14 +60,14 @@ function LanguageSwitcherInner({
 
   const linkBase =
     variant === "header"
-      ? "transition-colors duration-150"
+      ? "transition-[color,opacity] duration-150 ease-out"
       : "transition-colors";
 
   const linkActive =
     variant === "header"
       ? onDarkSection
-        ? "text-[rgba(255,255,255,0.96)] font-semibold pointer-events-none"
-        : "text-[rgba(10,22,40,0.95)] font-semibold pointer-events-none"
+        ? "text-white font-semibold pointer-events-none"
+        : "text-[#0A1628] font-semibold pointer-events-none"
       : "text-[rgba(255,255,255,0.75)] pointer-events-none";
 
   const linkInactive =

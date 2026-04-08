@@ -5,7 +5,7 @@ import { withLocale, type Locale } from "@/lib/i18n";
 export default function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="bg-navy border-t border-[rgba(255,255,255,0.12)] mt-12 md:mt-16">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-10 pt-12 lg:pt-14 pb-8 lg:pb-10">
+      <div className="mx-auto min-w-0 max-w-[1280px] px-5 md:px-10 pt-12 lg:pt-14 pb-8 lg:pb-10">
 
         <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <nav

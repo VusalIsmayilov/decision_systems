@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import Image from "next/image";
+import DataOfisLogo from "./DataOfisLogo";
 import NavigationOverlay from "./NavigationOverlay";
 import LanguageSwitcher from "./LanguageSwitcher";
 import type { Locale } from "@/lib/i18n";
@@ -19,15 +19,9 @@ function parseRgb(color: string): [number, number, number, number] | null {
   ];
 }
 
-function relativeLuminance(r: number, g: number, b: number): number {
-  const toLinear = (v: number) => {
-    const s = v / 255;
-    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
-  };
-  const R = toLinear(r);
-  const G = toLinear(g);
-  const B = toLinear(b);
-  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+/** ITU-R BT.601 luma on 0–255 RGB, normalized to 0–1 (matches header-implementation.md). */
+function normalizedLuma(r: number, g: number, b: number): number {
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 }
 
 function findOpaqueBackground(el: Element | null): [number, number, number] | null {
@@ -43,6 +37,17 @@ function findOpaqueBackground(el: Element | null): [number, number, number] | nu
   return null;
 }
 
+/** Y coordinate just below fixed header so elementFromPoint hits page content, not transparent header layers. */
+function contrastSampleY(): number {
+  const h = window.innerHeight;
+  if (h < 48) return Math.floor(h / 2);
+  const stacked = window.matchMedia("(max-width: 767px)").matches;
+  // Matches Header: top 48px + (mobile: logo 28 + gap-3 12 + row ~44) or (md+: one ~44px row)
+  const chromeBottom = stacked ? 48 + 28 + 12 + 44 : 48 + 44;
+  const y = chromeBottom + 18;
+  return Math.min(Math.max(y, 0), h - 4);
+}
+
 export default function Header({ locale }: { locale: Locale }) {
   const [navOpen, setNavOpen] = useState(false);
   const [onDarkSection, setOnDarkSection] = useState(true);
@@ -52,14 +57,19 @@ export default function Header({ locale }: { locale: Locale }) {
   useEffect(() => {
     let rafId = 0;
     const detectContrast = () => {
-      const y = 62;
-      const xPoints = [Math.max(20, window.innerWidth * 0.14), window.innerWidth * 0.5, window.innerWidth * 0.86];
+      const y = contrastSampleY();
+      const w = window.innerWidth;
+      const xPoints = [
+        Math.max(12, Math.floor(w * 0.04)),
+        Math.floor(w * 0.5),
+        Math.min(w - 12, Math.floor(w * 0.96)),
+      ];
       const luminances: number[] = [];
       for (const x of xPoints) {
-        const el = document.elementFromPoint(Math.floor(x), y);
+        const el = document.elementFromPoint(x, y);
         const rgb = findOpaqueBackground(el);
         if (!rgb) continue;
-        luminances.push(relativeLuminance(rgb[0], rgb[1], rgb[2]));
+        luminances.push(normalizedLuma(rgb[0], rgb[1], rgb[2]));
       }
       if (luminances.length === 0) return;
       const avg = luminances.reduce((a, b) => a + b, 0) / luminances.length;
@@ -67,7 +77,7 @@ export default function Header({ locale }: { locale: Locale }) {
       if (avg <= 0.45) next = true;
       else if (avg >= 0.55) next = false;
       previousDarkRef.current = next;
-      setOnDarkSection(next);
+      setOnDarkSection((prev) => (prev === next ? prev : next));
     };
     const schedule = () => {
       if (rafId) cancelAnimationFrame(rafId);
@@ -84,68 +94,55 @@ export default function Header({ locale }: { locale: Locale }) {
   }, []);
 
   const navTone = onDarkSection
-    ? "text-[rgba(255,255,255,0.92)] hover:text-white"
-    : "text-[rgba(10,22,40,0.92)] hover:text-[rgba(10,22,40,1)]";
+    ? "text-[rgba(255,255,255,0.9)] hover:text-white hover:opacity-90"
+    : "text-[rgba(10,22,40,0.9)] hover:text-[rgba(10,22,40,1)] hover:opacity-90";
 
   return (
     <>
-      <div
-        className="fixed z-50"
-        style={{
-          top: "48px",
-          left: "var(--nav-chip-left)",
-        }}
-      >
-        <div className="flex items-center gap-[40px]">
+      <div className="fixed z-50 left-[var(--nav-chip-left)] right-[var(--nav-chip-right)] top-[48px]">
+        {/*
+          One DOM tree: mobile = logo full width, then nav + language on one row.
+          md+ = single line: logo | gap | nav | flex spacer | language.
+        */}
+        <div className="grid min-w-0 w-full grid-cols-[minmax(0,1fr)_auto] grid-rows-[auto_auto] gap-x-3 gap-y-3 md:grid-cols-[auto_auto_1fr_auto] md:grid-rows-1 md:items-center md:gap-x-0 md:gap-y-0">
           <a
             href="https://www.dataofis.az"
-            className="inline-flex h-[28px] w-[140px] items-center transition-opacity duration-150 hover:opacity-85"
-            aria-label="DataOfis main site"
+            className="col-span-2 block w-fit shrink-0 justify-self-start opacity-100 transition-none hover:opacity-85 md:col-span-1 md:mr-[40px]"
+            aria-label="Go to dataofis.az"
           >
-            <Image
-              src={onDarkSection ? "/dark.png" : "/white.png"}
-              alt="DataOfis"
-              width={140}
-              height={28}
-              className="h-[28px] w-[140px] object-cover object-center"
-              priority
-            />
+            <DataOfisLogo onDarkSection={onDarkSection} />
           </a>
           <button
+            type="button"
             onClick={() => setNavOpen(true)}
             aria-label="Open navigation"
             aria-expanded={navOpen}
-            className={`inline-flex min-h-11 items-center gap-2 px-2 py-2 transition-all duration-150 ease-out ${navTone}`}
+            className={`col-start-1 row-start-2 inline-flex min-h-11 min-w-0 max-w-full justify-self-start px-2 py-2 transition-[color,opacity] duration-150 ease-out md:col-start-2 md:row-start-1 ${navTone}`}
+            style={{ fontSize: "16px", fontWeight: 600 }}
           >
-            <svg
-              className="shrink-0"
-              width="16"
-              height="16"
-              viewBox="0 0 18 18"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            >
-              <path d="M1 3h16M1 9h16M1 15h16" />
-            </svg>
-            <span className="select-none text-[16px] font-semibold leading-none tracking-tight">
-              Decision Systems
+            <span className="inline-flex min-w-0 items-center gap-2">
+              <svg
+                className="shrink-0"
+                width="16"
+                height="16"
+                viewBox="0 0 18 18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              >
+                <path d="M1 3h16M1 9h16M1 15h16" />
+              </svg>
+              <span className="min-w-0 select-none truncate tracking-tight">Decision Systems</span>
             </span>
           </button>
+          <nav
+            aria-label="Language"
+            className="col-start-2 row-start-2 min-w-0 shrink-0 justify-self-end md:col-start-4 md:row-start-1 md:justify-self-end"
+          >
+            <LanguageSwitcher variant="header" onDarkSection={onDarkSection} />
+          </nav>
         </div>
-      </div>
-
-      <div
-        className="fixed z-50"
-        style={{
-          top: "48px",
-          right: "var(--nav-chip-right)",
-        }}
-      >
-        <nav aria-label="Language">
-          <LanguageSwitcher variant="header" onDarkSection={onDarkSection} />
-        </nav>
       </div>
 
       <NavigationOverlay locale={locale} isOpen={navOpen} onClose={handleClose} />
