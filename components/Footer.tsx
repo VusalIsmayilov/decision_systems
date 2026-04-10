@@ -1,71 +1,75 @@
 import Link from "next/link";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { withLocale, type Locale } from "@/lib/i18n";
 
 export default function Footer({ locale }: { locale: Locale }) {
+  const L = (path: string) => withLocale(locale, path);
+
   return (
     <footer className="bg-navy border-t border-[rgba(255,255,255,0.12)] mt-12 md:mt-16">
       <div className="mx-auto min-w-0 max-w-[1280px] px-5 md:px-10 pt-12 lg:pt-14 pb-8 lg:pb-10">
 
-        <div className="mb-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <nav
-            className="flex flex-wrap gap-x-8 gap-y-2 text-sm font-normal text-[rgba(255,255,255,0.65)]"
-            aria-label="Site structure"
-          >
-            <Link href={withLocale(locale, "/decision-systems")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-10 lg:gap-14">
+          {/* Left — brand */}
+          <div className="flex flex-col gap-1.5 text-left">
+            <Link
+              href={L("/")}
+              className="w-fit text-base font-semibold tracking-tight text-white transition-colors hover:text-[rgba(255,255,255,0.88)]"
+            >
+              DataOfis
+            </Link>
+            <Link
+              href={L("/decision-systems")}
+              className="w-fit text-sm font-normal leading-snug text-[rgba(255,255,255,0.58)] transition-colors hover:text-[rgba(255,255,255,0.72)]"
+            >
               Decision Systems
             </Link>
-            <Link href={withLocale(locale, "/about")} className="hover:text-[rgba(255,255,255,0.9)] transition-colors">
+          </div>
+
+          {/* Middle — very light */}
+          <nav
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center text-xs font-normal text-[rgba(255,255,255,0.3)] md:self-start md:pt-0.5"
+            aria-label="Footer links"
+          >
+            <Link
+              href={L("/decision-systems")}
+              className="inline-flex min-h-11 items-center transition-colors hover:text-[rgba(255,255,255,0.48)]"
+            >
+              Decision Systems
+            </Link>
+            <span className="inline-flex min-h-11 items-center text-[rgba(255,255,255,0.18)]" aria-hidden>
+              ·
+            </span>
+            <Link
+              href={L("/about")}
+              className="inline-flex min-h-11 items-center transition-colors hover:text-[rgba(255,255,255,0.48)]"
+            >
               About
             </Link>
           </nav>
-          <Link
-            href={withLocale(locale, "/decision-diagnostic/intake")}
-            className="inline-flex min-h-11 items-center justify-center self-start bg-[#2B5CE6] px-7 py-3 text-center text-[13px] font-semibold leading-none tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#1E4AC4] sm:self-auto"
-            style={{ borderRadius: 0 }}
-          >
-            → Diagnostic
-          </Link>
-        </div>
 
-        {/* Top row */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-8">
-
-          {/* Left — brand + contact */}
-          <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-[rgba(255,255,255,0.65)]">DataOfis Decision Systems Design</span>
-            <span className="text-sm text-[rgba(255,255,255,0.65)]">Baku, Azerbaijan</span>
-            <span className="text-sm text-[rgba(255,255,255,0.75)]">
+          {/* Right — location, email, LinkedIn */}
+          <div className="flex flex-col gap-1.5 md:items-end md:text-right">
+            <span className="text-sm text-[rgba(255,255,255,0.62)]">Baku, Azerbaijan</span>
+            <a
+              href="mailto:contact@dataofis.az"
+              className="w-fit text-sm text-[rgba(255,255,255,0.78)] transition-colors hover:text-[rgba(255,255,255,0.92)] md:ml-auto"
+            >
               contact@dataofis.az
-            </span>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/dataofis"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-fit text-xs text-[rgba(255,255,255,0.45)] transition-colors hover:text-[rgba(255,255,255,0.65)] md:ml-auto"
+            >
+              LinkedIn
+            </a>
           </div>
-
-          {/* Right — LinkedIn + language */}
-          <div className="flex flex-col items-start gap-5 sm:items-end">
-            <div className="flex items-center gap-6">
-              <a
-                href="https://www.linkedin.com/company/dataofis"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-[rgba(255,255,255,0.75)] hover:text-[rgba(255,255,255,0.9)] transition-colors"
-              >
-                LinkedIn
-              </a>
-
-              <LanguageSwitcher />
-            </div>
-          </div>
-
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-[rgba(255,255,255,0.12)] mt-8" />
-
-        {/* Legal */}
-        <p className="mt-5 text-sm text-[rgba(255,255,255,0.65)]">
-          © DataOfis Decision Systems Design. All rights reserved.
-        </p>
-
+        <div className="mt-8 border-t border-[rgba(255,255,255,0.12)] pt-6">
+          <p className="text-sm text-[rgba(255,255,255,0.55)]">© DataOfis | Decision Systems</p>
+        </div>
       </div>
     </footer>
   );

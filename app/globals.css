@@ -65,7 +65,8 @@
 
 @media (max-width: 767px) {
   :root {
-    --header-offset: 10.25rem;
+    /* Fixed chip: top 48px + logo row (min 44px) + gap 12px + nav row (44px) ≈ 148px */
+    --header-offset: 9.25rem;
   }
 }
 
@@ -187,7 +188,7 @@ a {
 }
 
 .nav-overlay-exit {
-  animation: navOverlayOut 0.26s cubic-bezier(0.4, 0, 1, 1) forwards;
+  animation: navOverlayOut 0.2s cubic-bezier(0.4, 0, 1, 1) forwards;
   transform-origin: center center;
 }
 

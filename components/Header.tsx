@@ -42,8 +42,8 @@ function contrastSampleY(): number {
   const h = window.innerHeight;
   if (h < 48) return Math.floor(h / 2);
   const stacked = window.matchMedia("(max-width: 767px)").matches;
-  // Matches Header: top 48px + (mobile: logo 28 + gap-3 12 + row ~44) or (md+: one ~44px row)
-  const chromeBottom = stacked ? 48 + 28 + 12 + 44 : 48 + 44;
+  // Matches Header: top 48px + (mobile: logo row 44 + gap-3 12 + nav row 44) or (md+: one ~44px row)
+  const chromeBottom = stacked ? 48 + 44 + 12 + 44 : 48 + 44;
   const y = chromeBottom + 18;
   return Math.min(Math.max(y, 0), h - 4);
 }
@@ -107,7 +107,7 @@ export default function Header({ locale }: { locale: Locale }) {
         <div className="grid min-w-0 w-full grid-cols-[minmax(0,1fr)_auto] grid-rows-[auto_auto] gap-x-3 gap-y-3 md:grid-cols-[auto_auto_1fr_auto] md:grid-rows-1 md:items-center md:gap-x-0 md:gap-y-0">
           <a
             href="https://www.dataofis.az"
-            className="col-span-2 block w-fit shrink-0 justify-self-start opacity-100 transition-none hover:opacity-85 md:col-span-1 md:mr-[40px]"
+            className="col-span-2 inline-flex min-h-11 w-fit shrink-0 items-center justify-self-start py-2 opacity-100 transition-none hover:opacity-85 md:col-span-1 md:mr-[40px]"
             aria-label="Go to dataofis.az"
           >
             <DataOfisLogo onDarkSection={onDarkSection} />

@@ -147,17 +147,17 @@ export default function DiagnosticIntakeForm() {
         <legend className={`${labelClass} mb-3 block`}>Where does inconsistency appear?</legend>
         <ul className="flex flex-col gap-3">
           {INCONSISTENCY.map(({ name, label }) => (
-            <li key={name} className="flex items-start gap-3">
+            <li key={name} className="flex min-h-11 items-center gap-3">
               <input
                 id={`intake-${name}`}
                 name={name}
                 type="checkbox"
-                className="mt-1 h-4 w-4 shrink-0 border border-[rgba(10,22,40,0.2)] accent-[#2B5CE6]"
+                className="h-4 w-4 shrink-0 border border-[rgba(10,22,40,0.2)] accent-[#2B5CE6]"
                 style={{ borderRadius: 0 }}
               />
               <label
                 htmlFor={`intake-${name}`}
-                className="text-[15px] font-medium leading-[1.45] text-[#0A1628] max-sm:text-[14px]"
+                className="min-w-0 flex-1 cursor-pointer py-2 text-[15px] font-medium leading-[1.45] text-[#0A1628] max-sm:text-[14px]"
               >
                 {label}
               </label>

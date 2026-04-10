@@ -2,89 +2,19 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import { stripLocalePrefix, withLocale } from "@/lib/i18n";
-
-// ─── Data ────────────────────────────────────────────────────────────────────
-
-type NavItem = { label: string; desc: string; href: string };
-
-type NavCategory = {
-  id: string;
-  label: string;
-  descriptor: string;
-  href: string;
-  statement: string;
-  items?: NavItem[];
-  cta?: { label: string; desc: string; href: string };
-};
+import { getNavOverlayChapterId } from "@/lib/siteNav";
+import {
+  NAV_MENU_CATEGORIES,
+  navMenuCenterBlockParagraphs,
+  type NavMenuCategory,
+} from "@/lib/navMenu";
 
 const MAIN_SITE_URL = "https://www.dataofis.az";
 
-const NAV_CATEGORIES: NavCategory[] = [
-  {
-    id: "home",
-    label: "Decision Problem",
-    descriptor: "Pattern recognition — recurring inconsistency",
-    href: "/",
-    statement:
-      "The same decision is made repeatedly.\nThe outcome changes.\n\nAcross teams.\nAcross time.\nAcross the same conditions.\n\nThis is not variation.\nIt is a pattern.",
-  },
-  {
-    id: "decision-systems",
-    label: "Decision Systems",
-    descriptor: "Structural reframe — cause identification",
-    href: "/decision-systems",
-    statement:
-      "The inconsistency is not caused by data, tools, or execution.\n\nIt persists because the decision itself is not structurally defined.\n\nEach time the decision occurs,\nit is reconstructed.\n\nThe structure does not exist as a stable system.",
-  },
-  {
-    id: "decision-systems-design",
-    label: "Decision Systems Design",
-    descriptor: "Category formation — system definition",
-    href: "/decision-systems-design",
-    statement:
-      "A recurring decision can be defined as a system.\n\nIt operates through:\ndecision, trigger, inputs, logic, ownership, workflow, action, feedback.\n\nWhen these are specified,\nthe decision becomes repeatable.",
-  },
-  {
-    id: "how-decisions-are-structured",
-    label: "How Decisions Are Structured",
-    descriptor: "Mechanism — structure visibility",
-    href: "/how-decisions-are-structured",
-    statement:
-      "The structure of a decision is not documented.\nIt is observed.\n\nBy examining how decisions actually happen,\ntheir structure becomes visible.\n\nOnly then can variability be traced.",
-  },
-  {
-    id: "decision-systems-in-practice",
-    label: "Decision Systems in Practice",
-    descriptor: "Proof — applied consistency",
-    href: "/decision-systems-in-practice",
-    statement:
-      "The same decision can operate in two ways.\n\nUnstructured:\nvariable inputs, shifting logic, inconsistent action.\n\nStructured:\ndefined conditions, fixed logic, consistent outcomes.\n\nThe difference is not capability.\nIt is structure.",
-  },
-  {
-    id: "decision-diagnostic",
-    label: "Decision Diagnostic",
-    descriptor: "Commitment — structured assessment",
-    href: "/decision-diagnostic",
-    statement:
-      "If outcomes vary,\nthe decision is not fully defined.\n\nThe diagnostic determines:\n\n• how the decision currently operates\n• where variability enters\n• which elements are missing\n\nThis is the first required step.",
-    cta: {
-      label: "Request a Decision Diagnostic",
-      desc: "Structured intake form—start the evaluation.",
-      href: "/decision-diagnostic/intake",
-    },
-  },
-  {
-    id: "about",
-    label: "About",
-    descriptor: "Authority — credibility anchor",
-    href: "/about",
-    statement:
-      "The focus is one problem:\nhow recurring decisions operate.\n\nWork spans data, operations, and governance—\nat the point where decisions are formed.\n\nThis is not advisory.\nIt is structural definition.",
-  },
-];
+const NAV_CATEGORIES = NAV_MENU_CATEGORIES;
 
 function resolveCtaHref(locale: Locale, href: string): string {
   if (href.startsWith("http://") || href.startsWith("https://")) {
@@ -94,23 +24,28 @@ function resolveCtaHref(locale: Locale, href: string): string {
 }
 
 // Gap between sub-items: tighter for plain bullet lists, wider when items have descs
-function item_gap(cat: NavCategory): string {
+function item_gap(cat: NavMenuCategory): string {
   const hasDescs = cat.items?.some((i) => i.desc);
   return hasDescs ? "28px" : "16px";
 }
 
-// Pre-select the chapter that matches the current page when overlay opens
-function getInitialChapterId(pathname: string): string {
-  const p = stripLocalePrefix(pathname);
-  if (p.startsWith("/decision-diagnostic/intake")) return "decision-diagnostic";
-  if (p.startsWith("/decision-diagnostic")) return "decision-diagnostic";
-  if (p.startsWith("/decision-systems-in-practice")) return "decision-systems-in-practice";
-  if (p.startsWith("/decision-systems-design")) return "decision-systems-design";
-  if (p.startsWith("/decision-systems")) return "decision-systems";
-  if (p.startsWith("/how-decisions-are-structured")) return "how-decisions-are-structured";
-  if (p.startsWith("/about")) return "about";
-  if (p === "/") return "home";
-  return "home";
+function collectNavPrefetchHrefs(locale: Locale): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  const add = (path: string) => {
+    if (path.startsWith("http://") || path.startsWith("https://")) return;
+    const href = withLocale(locale, path);
+    if (!seen.has(href)) {
+      seen.add(href);
+      out.push(href);
+    }
+  };
+  for (const cat of NAV_CATEGORIES) {
+    add(cat.href);
+    cat.items?.forEach((i) => add(i.href));
+    if (cat.cta) add(cat.cta.href);
+  }
+  return out;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -131,6 +66,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
   const [overlayClass, setOverlayClass] = useState("nav-overlay-enter");
 
   const pathname = usePathname();
+  const router = useRouter();
   const L = (path: string) => withLocale(locale, path);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -161,7 +97,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
       setOverlayClass("nav-overlay-enter");
     } else if (mounted) {
       setOverlayClass("nav-overlay-exit");
-      exitTimerRef.current = setTimeout(() => setMounted(false), 290);
+      exitTimerRef.current = setTimeout(() => setMounted(false), 220);
     }
     return () => {
       if (exitTimerRef.current) clearTimeout(exitTimerRef.current);
@@ -198,7 +134,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
   // Pre-select the chapter matching the current page when overlay opens
   useEffect(() => {
     if (isOpen) {
-      const initial = getInitialChapterId(pathname);
+      const initial = getNavOverlayChapterId(stripLocalePrefix(pathname));
       setActiveId(initial);
       setDisplayedId(initial);
       displayedIdRef.current = initial;
@@ -206,6 +142,13 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
       if (chapterTimerRef.current) clearTimeout(chapterTimerRef.current);
     }
   }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!isOpen) return;
+    for (const href of collectNavPrefetchHrefs(locale)) {
+      router.prefetch(href);
+    }
+  }, [isOpen, locale, router]);
 
   if (!mounted) return null;
 
@@ -228,9 +171,9 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
           <a
             href={MAIN_SITE_URL}
             onClick={handleClose}
-            className="-mx-2 inline-flex min-h-11 min-w-0 max-w-[min(100%,calc(100vw-5rem))] items-center break-words px-2 pr-3 text-left text-sm font-bold leading-snug tracking-tight text-white transition-opacity hover:opacity-75 sm:max-w-[min(100%,520px)] sm:text-base"
+            className="-mx-2 inline-flex min-h-11 min-w-0 max-w-[min(100%,calc(100vw-5rem))] items-center break-words px-2 pr-3 text-left text-base font-bold leading-snug tracking-tight text-white transition-opacity hover:opacity-75 sm:max-w-[min(100%,520px)] sm:text-lg"
           >
-            DataOfis (← go to main router)
+            DataOfis (← main page)
           </a>
 
           <button
@@ -282,15 +225,15 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                         <span
                           className="block break-words transition-all duration-200"
                           style={{
-                            fontSize: "40px",
+                            fontSize: "clamp(28px, 3.2vw, 40px)",
                             fontWeight: isActive ? 700 : 500,
-                            lineHeight: "48px",
+                            lineHeight: "clamp(32px, 3.6vw, 48px)",
                             color: isActive
                               ? "#ffffff"
                               : "rgba(255, 255, 255, 0.58)",
                           }}
                         >
-                          {cat.label}
+                          {cat.title}
                         </span>
                         <span
                           className="block transition-all duration-200 mt-1.5"
@@ -304,7 +247,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                             maxWidth: "88%",
                           }}
                         >
-                          {cat.descriptor}
+                          {cat.subline}
                         </span>
                       </Link>
                     </li>
@@ -323,18 +266,18 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
               <p
                 className="mb-7 break-words"
                 style={{
-                  fontSize: "36px",
+                  fontSize: "clamp(24px, 2.8vw, 36px)",
                   fontWeight: 700,
-                  lineHeight: "44px",
+                  lineHeight: "clamp(30px, 3.2vw, 44px)",
                   color: "#ffffff",
                 }}
               >
-                {active.label}
+                {active.title}
               </p>
 
-              {/* Statement — first para anchors the panel */}
+              {/* Center block — first para anchors the panel */}
               <div className="mb-12" style={{ maxWidth: "560px" }}>
-                {active.statement.split("\n\n").map((para, i) => (
+                {navMenuCenterBlockParagraphs(active.centerBlock).map((para, i) => (
                   <p
                     key={i}
                     className={`whitespace-pre-line ${i > 0 ? "mt-5" : ""}`}
@@ -412,16 +355,18 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                   >
                     {active.cta.label}
                   </Link>
-                  <p
-                    className="mt-3"
-                    style={{
-                      fontSize: "13px",
-                      color: "rgba(255,255,255,0.32)",
-                      lineHeight: "20px",
-                    }}
-                  >
-                    {active.cta.desc}
-                  </p>
+                  {active.cta.desc ? (
+                    <p
+                      className="mt-3"
+                      style={{
+                        fontSize: "13px",
+                        color: "rgba(255,255,255,0.32)",
+                        lineHeight: "20px",
+                      }}
+                    >
+                      {active.cta.desc}
+                    </p>
+                  ) : null}
                 </div>
               )}
             </div>
@@ -437,14 +382,14 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                   <Link
                     href={L(cat.href)}
                     onClick={handleClose}
-                    className="-mx-2 mb-1.5 block break-words px-2 py-2 text-white transition-opacity hover:opacity-75"
+                    className="-mx-2 mb-1.5 flex min-h-11 items-center break-words px-2 py-3 text-white transition-opacity hover:opacity-75"
                     style={{
                       fontSize: "22px",
                       fontWeight: 700,
                       lineHeight: "30px",
                     }}
                   >
-                    {cat.label}
+                    {cat.title}
                   </Link>
                   <p
                     className="mb-5"
@@ -454,7 +399,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                       lineHeight: "20px",
                     }}
                   >
-                    {cat.descriptor}
+                    {cat.subline}
                   </p>
 
                   {cat.items && (
@@ -464,7 +409,7 @@ export default function NavigationOverlay({ locale, isOpen, onClose }: Props) {
                           <Link
                             href={L(item.href)}
                             onClick={handleClose}
-                            className="-mx-2 block px-2 py-2.5 transition-opacity hover:opacity-80"
+                            className="-mx-2 flex min-h-11 min-w-0 items-start px-2 py-3 transition-opacity hover:opacity-80"
                           >
                             <span
                               className="block"

@@ -91,7 +91,11 @@ function LanguageSwitcherInner({
             {i > 0 ? <span className={sep} aria-hidden>/</span> : null}
             <Link
               href={withLocale(loc, pathWithQuery === "/" ? "/" : pathWithQuery)}
-              className={`${linkBase} ${active ? linkActive : linkInactive}`}
+              className={`${linkBase} ${active ? linkActive : linkInactive} ${
+                variant === "header"
+                  ? "inline-flex min-h-11 min-w-[2.75rem] items-center justify-center px-1"
+                  : ""
+              }`}
               hrefLang={loc === "en" ? "en" : loc === "az" ? "az" : "ru"}
               aria-current={active ? "true" : undefined}
             >
